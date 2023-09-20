@@ -16,9 +16,9 @@ import Sidebar from './components/Sidebar.vue'
 
 <style scoped>
 .layout {
-  display: grid;
-  grid-template-columns: 2fr 300px;
-  grid-gap: 1rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   background: var(--boardBackgroundColor);
   height: 100vh;
   width: 100%;
@@ -35,12 +35,21 @@ import Sidebar from './components/Sidebar.vue'
 .layout__sidebar {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 400px;
+  max-width: 300px;
 }
 
 @media (max-width: 768px) {
   .layout {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .layout__sidebar {
+    min-height: auto;
+    width: 100%;
+    max-width: 100%;
   }
 }
 </style>

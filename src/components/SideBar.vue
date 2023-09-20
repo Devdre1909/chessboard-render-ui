@@ -1,20 +1,15 @@
 <template>
   <div class="wrapper">
     <div class="wrapper__items">
-      <span v-for="key in clickedSquares" :key="key">
-        {{ key }}
-      </span>
+      {{
+        Array.from(clickedSquares).length === 0
+          ? 'No selection'
+          : Array.from(clickedSquares).join(', ')
+      }}
     </div>
     <div class="sidebar__actions">
       <button @click="removeLastClickedSquare">Remove last</button>
       <button @click="resetClickedSquares">Clean all</button>
-    </div>
-    <div class="sidebar__theme">
-      <button @click="changeTheme('brown-green')">Default</button>
-      <button @click="changeTheme('blue-red')">blue-red</button>
-      <button @click="changeTheme('purple-yellow')">purple-yellow</button>
-      <button @click="changeTheme('green-blue')">green-blue</button>
-
     </div>
   </div>
 </template>
@@ -27,10 +22,6 @@ const store = useChessStore()
 
 const { clickedSquares } = storeToRefs(store)
 const { resetClickedSquares, removeLastClickedSquare } = store
-
-const changeTheme = (value) => {
-  document.documentElement.setAttribute('data-theme', value)
-}
 </script>
 
 <style scoped>
@@ -38,7 +29,13 @@ const changeTheme = (value) => {
   background: var(--boardBackgroundUIColor);
   padding: 1rem;
   width: 100%;
-  height: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .wrapper__items {
@@ -48,13 +45,8 @@ const changeTheme = (value) => {
   align-items: center;
   gap: 0.5rem;
   margin: 40px 0;
-}
-
-.wrapper__items span {
-  background-color: var(--boardBackgroundColor);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
   color: #fff;
+  font-weight: bold;
 }
 
 .sidebar__actions {

@@ -51,7 +51,7 @@ const initializeBoard = () => {
   const size = calcSquaresSize()
   boardMaxSize.value = calcBoardPossibleMaxSize()
 
-  const rows = Array.from({ length: BOARD_SIZE }).map((_, index) => index + 1)
+  const rows = Array.from({ length: BOARD_SIZE }).map((_, index) => index + 1).reverse()
   const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
   squares.value = Array.from({ length: BOARD_SIZE * BOARD_SIZE }).map((_, index) => {
