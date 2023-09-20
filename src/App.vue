@@ -9,7 +9,6 @@ import Sidebar from './components/Sidebar.vue'
       <ChessBoard />
     </div>
     <div class="layout__sidebar">
-
       <Sidebar />
     </div>
   </div>
@@ -20,20 +19,23 @@ import Sidebar from './components/Sidebar.vue'
   display: grid;
   grid-template-columns: 2fr 300px;
   grid-gap: 1rem;
-  background: #222;
+  background: var(--boardBackgroundColor);
+  height: 100vh;
+  width: 100%;
 }
 
 .layout__chess {
   max-width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  padding: 20px;
 }
 
 .layout__sidebar {
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 }
 
 @media (max-width: 768px) {

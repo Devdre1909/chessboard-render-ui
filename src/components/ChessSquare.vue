@@ -24,12 +24,10 @@ defineProps({
 
 <style module>
 .isOdd {
-  background-color: #fff;
-  color: black;
+  background-color: var(--squareColorOne);
 }
 .isEven {
-  background-color: #000;
-  color: white;
+  background-color: var(--squareColorTwo);
 }
 
 .isSelected {
@@ -45,12 +43,13 @@ defineProps({
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
-  border: 2px solid black;
   outline: none;
+  border: none;
+  z-index: 0;
 }
 
 .chessSquare:hover {
-  border: 2px solid red;
+  filter: brightness(1.2);
 }
 
 .chessSquare span {

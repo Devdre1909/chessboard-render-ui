@@ -2,27 +2,30 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useChessStore = defineStore('chess', () => {
+  const clickedSquares = ref(new Set())
 
-  const boardClickedStack = ref([])
-  const boardClicked = computed(() => boardClickedStack.value)
-
-  const addBoardClicked = (value) => {
-    if (boardClickedStack.value.includes(value)) return
-    boardClickedStack.value.push(value)
+  const addClickedSquare = (value) => {
+    clickedSquares.value.add(value)
   }
 
-  const removeLastClicked = () => {
-    boardClickedStack.value.pop()
+  const removeLastClickedSquare = () => {
+    const lastClicked = [...clickedSquares.value].pop()
+    clickedSquares.value.delete(lastClicked)
   }
 
-  const resetBoardClicked = () => {
-    boardClickedStack.value = []
+  const resetClickedSquares = () => {
+    clickedSquares.value.clear()
   }
+
+  const isSquareClicked = computed(() => (square) => {
+    return clickedSquares.value.has(square)
+  })
 
   return {
-    boardClicked,
-    addBoardClicked,
-    resetBoardClicked,
-    removeLastClicked
+    clickedSquares,
+    addClickedSquare,
+    removeLastClickedSquare,
+    resetClickedSquares,
+    isSquareClicked
   }
 })

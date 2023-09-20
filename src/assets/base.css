@@ -1,3 +1,48 @@
+:root {
+  --squareColorOne: #caa770;
+  --squareColorTwo: #936c49;
+  --boardBackgroundColor: #4e733c;
+  --boardBackgroundUIColor: #3d5a32;
+  --buttonBgColor: #d0d8cd;
+  --buttonTextColor: #333;
+}
+
+:root[data-theme='brown-green'] {
+  --squareColorOne: #caa770;
+  --squareColorTwo: #936c49;
+  --boardBackgroundColor: #4e733c;
+  --boardBackgroundUIColor: #3d5a32;
+  --buttonBgColor: #d0d8cd;
+  --buttonTextColor: #333;
+}
+
+:root[data-theme='blue-red'] {
+  --squareColorOne: #a7c0cd;
+  --squareColorTwo: #6c8e9c;
+  --boardBackgroundColor: #3c5a73;
+  --boardBackgroundUIColor: #2f475a;
+  --buttonBgColor: #d0d8cd;
+  --buttonTextColor: #333;
+}
+
+:root[data-theme='purple-yellow'] {
+  --squareColorOne: #cda7cd;
+  --squareColorTwo: #9c6c8e;
+  --boardBackgroundColor: #733c5a;
+  --boardBackgroundUIColor: #5a2f47;
+  --buttonBgColor: #d0d8cd;
+  --buttonTextColor: #333;
+}
+
+:root[data-theme='green-blue'] {
+  --squareColorOne: #a7cdcd;
+  --squareColorTwo: #6c9c9c;
+  --boardBackgroundColor: #3c7373;
+  --boardBackgroundUIColor: #2f5a5a;
+  --buttonBgColor: #d0d8cd;
+  --buttonTextColor: #333;
+}
+
 *,
 *::before,
 *::after {
@@ -13,4 +58,5 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
 }

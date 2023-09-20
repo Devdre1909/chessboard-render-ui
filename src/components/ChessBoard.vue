@@ -12,8 +12,8 @@
       :square="square"
       :size="square.size"
       :keyName="square.squareName"
-      :isSelected="isBoardClicked(square.squareName)"
-      @click="addBoardClicked(square.squareName)"
+      :isSelected="isSquareClicked(square.squareName)"
+      @click="addClickedSquare(square.squareName)"
     ></ChessSquare>
   </div>
 </template>
@@ -22,34 +22,27 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import ChessSquare from './ChessSquare.vue'
 import { useChessStore } from '../stores/chess'
-import { storeToRefs } from 'pinia'
 
 const BOARD_SIZE = 8
+const BOARD_PADDING = 20
 
 const store = useChessStore()
 
-const { addBoardClicked } = store
-const { boardClicked } = storeToRefs(store)
+const { addClickedSquare, isSquareClicked } = store
 
 const squares = ref([])
 const gridTemplateColumns = `repeat(${BOARD_SIZE}, 1fr)`
 
-const isBoardClicked = (squareName) => {
-  return boardClicked.value.includes(squareName)
-}
-
 const calcSquaresSize = () => {
-  const deviceWidth = window.innerWidth
-  const deviceHeight = window.innerHeight
-  const squareWidth = Math.min(deviceWidth, deviceHeight) / BOARD_SIZE
-  return `${squareWidth}px`
+  const size = calcBoardPossibleMaxSize()
+  return `calc(${size} / ${BOARD_SIZE})`
 }
 
 const calcBoardPossibleMaxSize = () => {
   const deviceWidth = window.innerWidth
   const deviceHeight = window.innerHeight
   const squareWidth = Math.min(deviceWidth, deviceHeight)
-  return `${squareWidth}px`
+  return `${squareWidth - BOARD_PADDING * 2}px`
 }
 
 const boardMaxSize = ref(calcBoardPossibleMaxSize())
@@ -89,9 +82,12 @@ onBeforeUnmount(() => {
 <style scoped>
 .chess-board {
   display: grid;
-  background-color: #000;
+  background-color: var(--boardBackgroundColor);
   width: 100%;
   height: 100%;
   max-width: v-bind('boardMaxSize');
+  max-height: v-bind('boardMaxSize');
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 </style>
