@@ -11,12 +11,12 @@ defineProps({
 <template>
   <button
     :class="{
+      [$style.chessSquare]: true,
       [$style.isSelected]: isSelected,
       [$style.isEven]: isEven,
       [$style.isOdd]: !isEven
     }"
-    class="chessSquare"
-    onclick="onclick"
+    @click="onclick"
   >
     <span>{{ keyName }}</span>
   </button>
@@ -34,9 +34,7 @@ defineProps({
   background-color: yellow;
   color: black;
 }
-</style>
 
-<style scoped>
 .chessSquare {
   width: v-bind('size');
   height: v-bind('size');

@@ -2,24 +2,26 @@
   <div
     class="chess-board"
     :style="{
-      gridTemplateColumns: gridTemplateColumns
+      gridTemplateColumns: gridTemplateColumns,
+      maxWidth: boardMaxSize,
+      maxHeight: boardMaxSize
     }"
   >
     <ChessSquare
-      v-for="(square, index) in squares"
-      :key="index"
+      v-for="square in squares"
+      :key="square.squareName"
       :isEven="square.isEven"
       :square="square"
       :size="square.size"
       :keyName="square.squareName"
-      :isSelected="isSquareClicked(square.squareName)"
-      @click="addClickedSquare(square.squareName)"
+      :isSelected="lastSelectedSquare === square.squareName"
+      @click="addSelectedSquare(square.squareName)"
     ></ChessSquare>
   </div>
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import ChessSquare from './ChessSquare.vue'
 import { useChessStore } from '../stores/chess'
 
@@ -28,7 +30,8 @@ const BOARD_PADDING = 20
 
 const store = useChessStore()
 
-const { addClickedSquare, isSquareClicked } = store
+const { addSelectedSquare } = store
+const lastSelectedSquare = computed(() => store.lastSelectedSquare)
 
 const squares = ref([])
 const gridTemplateColumns = `repeat(${BOARD_SIZE}, 1fr)`
@@ -51,7 +54,9 @@ const initializeBoard = () => {
   const size = calcSquaresSize()
   boardMaxSize.value = calcBoardPossibleMaxSize()
 
-  const rows = Array.from({ length: BOARD_SIZE }).map((_, index) => index + 1).reverse()
+  const rows = Array.from({ length: BOARD_SIZE })
+    .map((_, index) => index + 1)
+    .reverse()
   const columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
   squares.value = Array.from({ length: BOARD_SIZE * BOARD_SIZE }).map((_, index) => {
@@ -85,8 +90,6 @@ onBeforeUnmount(() => {
   background-color: var(--boardBackgroundColor);
   width: 100%;
   height: 100%;
-  max-width: v-bind('boardMaxSize');
-  max-height: v-bind('boardMaxSize');
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
