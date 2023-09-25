@@ -1,6 +1,6 @@
 <script setup>
 import ChessBoard from './components/ChessBoard.vue'
-import Sidebar from './components/Sidebar.vue'
+import SideBar from './components/SideBar.vue'
 </script>
 
 <template>
@@ -9,7 +9,7 @@ import Sidebar from './components/Sidebar.vue'
       <ChessBoard />
     </div>
     <div class="layout__sidebar">
-      <Sidebar />
+      <SideBar />
     </div>
   </div>
 </template>
