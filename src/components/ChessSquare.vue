@@ -16,6 +16,10 @@ defineProps({
       [$style.isEven]: isEven,
       [$style.isOdd]: !isEven
     }"
+    :style="{
+      width: size,
+      height: size
+    }"
     @click="onclick"
   >
     <span>{{ keyName }}</span>
@@ -36,8 +40,6 @@ defineProps({
 }
 
 .chessSquare {
-  width: v-bind('size');
-  height: v-bind('size');
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;

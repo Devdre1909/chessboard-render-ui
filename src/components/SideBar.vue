@@ -8,15 +8,22 @@
       }}
     </div>
     <div class="sidebar__actions">
-      <button @click="removeLastSelectedSquare">Remove last</button>
-      <button @click="resetSelectedSquares">Clean all</button>
+      <button @click="removeLastSelectedSquare" :disabled="selectedSquares.length === 0">
+        Remove last
+      </button>
+      <button @click="resetSelectedSquares" :disabled="selectedSquares.length === 0">
+        Clean all
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
+import { storeToRefs } from 'pinia'
 import { useChessStore } from '../stores/chess'
-const { selectedSquares, resetSelectedSquares, removeLastSelectedSquare } = useChessStore()
+
+const { selectedSquares } = storeToRefs(useChessStore())
+const { resetSelectedSquares, removeLastSelectedSquare } = useChessStore()
 </script>
 
 <style scoped>
@@ -31,6 +38,15 @@ const { selectedSquares, resetSelectedSquares, removeLastSelectedSquare } = useC
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  max-width: 260px;
+  width: 260px;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
 .wrapper__items {
@@ -59,5 +75,21 @@ const { selectedSquares, resetSelectedSquares, removeLastSelectedSquare } = useC
   background: var(--buttonBgColor);
   color: var(--buttonTextColor);
   border-radius: 0.1rem;
+  border: 1px solid transparent;
+}
+
+.sidebar__actions button:hover {
+  background: var(--buttonHoverBgColor);
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.sidebar__actions button:hover:disabled {
+  background: var(--buttonBgColor);
+}
+
+.sidebar__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 </style>

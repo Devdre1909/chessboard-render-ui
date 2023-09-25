@@ -24,6 +24,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import ChessSquare from './ChessSquare.vue'
 import { useChessStore } from '../stores/chess'
+import { debounce } from '../utils/utils'
 
 const BOARD_SIZE = 8
 const BOARD_PADDING = 20
@@ -76,7 +77,9 @@ const initializeBoard = () => {
 
 onMounted(() => {
   initializeBoard()
-  window.addEventListener('resize', initializeBoard)
+  window.addEventListener('resize', () => {
+    debounce(initializeBoard, 1000)()
+  })
 })
 
 onBeforeUnmount(() => {
